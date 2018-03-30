@@ -11,12 +11,20 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    @IBOutlet var loginBtn: UIButton!
+    @IBOutlet var btnRegister: UIButton!
     @IBOutlet var nameTf: UITextField!
     @IBOutlet var emailTf: UITextField!
     @IBOutlet var passwordTf: UITextField!
+    @IBOutlet var registerFormContainer: UIView!
+    @IBOutlet var optionSegmentedControl: UISegmentedControl!
     
-    @IBAction func buttonAction(sender: UIButton!)
+    @IBOutlet var loginEmailTf: UITextField!
+    @IBOutlet var loginPasswordTf: UITextField!
+    @IBOutlet var loginFormContainer: UIView!
+    
+    @IBOutlet var btnLogin: UIButton!
+    
+    @IBAction func buttonActionRegister(sender: UIButton!)
     {
         Auth.auth().fetchProviders(forEmail: emailTf.text!) { (stringArray, error) in
             if error != nil {
@@ -28,6 +36,10 @@ class ViewController: UIViewController {
                         if error != nil {
                             print(error)
                         }
+                        
+//                        guard let uid = user?.uid else{
+//                            return
+//                        }
                         
                         //Saving user information into the database
                         let databaseUrl: String = "https://fir-chatapp-66b77.firebaseio.com/"
@@ -47,24 +59,65 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        
-        
         print("Hello World")
     }
     
-    func fetchProviders(forEmail email: String, completion: ProviderQueryCallback? = nil) {
-        
+    @IBAction func segmentDidChange(sender: UISegmentedControl)
+    {
+        switch optionSegmentedControl.selectedSegmentIndex {
+        case 0:
+            hideRegisterForm()
+            loginFormContainer.isHidden = false
+            loginEmailTf.isHidden = false
+            loginPasswordTf.isHidden = false
+            btnLogin.isHidden = false
+        case 1:
+            registerFormContainer.isHidden = false
+            nameTf.isHidden = false
+            passwordTf.isHidden = false
+            emailTf.isHidden = false
+            btnRegister.isHidden = false
+            hideLoginForm()
+        default:
+            registerFormContainer.isHidden = false
+            nameTf.isHidden = false
+            passwordTf.isHidden = false
+            emailTf.isHidden = false
+            btnRegister.isHidden = false
+            loginFormContainer.isHidden = true
+            loginEmailTf.isHidden = true
+            loginPasswordTf.isHidden = true
+            btnLogin.isHidden = true
+            
+        }
     }
+    
 
     @IBAction func unwindToDefaultViewController(sender: UIStoryboardSegue!)
     {
         
     }
     
+    
+    func hideLoginForm() {
+        loginFormContainer.isHidden = true
+        loginEmailTf.isHidden = true
+        loginPasswordTf.isHidden = true
+        btnLogin.isHidden = true
+    }
+    
+    func hideRegisterForm() {
+        registerFormContainer.isHidden = true
+        nameTf.isHidden = true
+        passwordTf.isHidden = true
+        emailTf.isHidden = true
+        btnRegister.isHidden = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // The below code would hide the login controls
+        hideLoginForm()
         
         var ref: DatabaseReference!
         ref = Database.database().reference()

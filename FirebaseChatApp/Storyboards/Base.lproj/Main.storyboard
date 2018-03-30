@@ -27,7 +27,7 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TeB-YI-YyA"/>
+                                    <action selector="buttonActionRegisterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EbP-L8-pbA"/>
                                     <segue destination="B97-j4-mDF" kind="presentation" id="qay-SK-4TJ"/>
                                 </connections>
                             </button>
@@ -53,17 +53,68 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dog-Z3-pzV">
+                                <rect key="frame" x="16" y="218" width="343" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Login"/>
+                                    <segment title="Register"/>
+                                </segments>
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="checkLoginRegisterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ObL-dq-T96"/>
+                                    <action selector="segmentDidChangeWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="VuO-7O-ch2"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="56K-41-NSq">
+                                <rect key="frame" x="16" y="273" width="343" height="128"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="nXz-wA-hwF" kind="embed" id="Xhp-GV-YYH"/>
+                                </connections>
+                            </containerView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-nR-RHU">
+                                <rect key="frame" x="26" y="273" width="330" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-1P-qWx">
+                                <rect key="frame" x="26" y="337" width="329" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-b6-a4M">
+                                <rect key="frame" x="16" y="409" width="343" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.087673964990000006" green="0.27037374939999997" blue="0.67272830009999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eid-CU-ULK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.17438748478889465" green="0.36092591285705566" blue="0.67272830009460449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="btnLogin" destination="3Fa-b6-a4M" id="gIE-mI-lwJ"/>
+                        <outlet property="btnRegister" destination="L12-5g-qau" id="rCh-CW-Oiu"/>
                         <outlet property="emailTf" destination="96O-F2-8JK" id="hb0-sB-6CH"/>
-                        <outlet property="loginBtn" destination="L12-5g-qau" id="xzG-2C-aRL"/>
+                        <outlet property="loginEmailTf" destination="0fj-nR-RHU" id="U3A-Qf-YA2"/>
+                        <outlet property="loginFormContainer" destination="56K-41-NSq" id="Tua-lI-FLs"/>
+                        <outlet property="loginPasswordTf" destination="3Zl-1P-qWx" id="hoh-EJ-Qvh"/>
                         <outlet property="nameTf" destination="SuD-Qf-zlP" id="PXi-Ji-GYn"/>
+                        <outlet property="optionSegmentedControl" destination="dog-Z3-pzV" id="LE7-Nj-3fj"/>
                         <outlet property="passwordTf" destination="IGg-E2-Z4o" id="hw4-zA-4dc"/>
+                        <outlet property="registerFormContainer" destination="xeb-ys-a7N" id="TwN-Wu-1JH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -112,6 +163,19 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p4z-YV-YLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="543" y="16"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="NGz-2u-y54">
+            <objects>
+                <viewController id="nXz-wA-hwF" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1we-b0-8Ng">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gHJ-lw-00k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>
