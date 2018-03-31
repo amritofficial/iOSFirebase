@@ -28,7 +28,7 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonActionRegisterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EbP-L8-pbA"/>
-                                    <segue destination="B97-j4-mDF" kind="presentation" id="qay-SK-4TJ"/>
+                                    <segue destination="B97-j4-mDF" kind="presentation" identifier="showMainSegue" id="qay-SK-4TJ"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xeb-ys-a7N">
@@ -64,16 +64,13 @@
                                 </segments>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <action selector="checkLoginRegisterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ObL-dq-T96"/>
                                     <action selector="segmentDidChangeWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="VuO-7O-ch2"/>
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="56K-41-NSq">
                                 <rect key="frame" x="16" y="273" width="343" height="128"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="nXz-wA-hwF" kind="embed" id="Xhp-GV-YYH"/>
-                                </connections>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </containerView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-nR-RHU">
                                 <rect key="frame" x="26" y="273" width="330" height="57"/>
@@ -97,15 +94,27 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eid-CU-ULK"/>
+                                    <action selector="loginActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XiZ-wL-iaL"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="t7U-sc-UhN">
+                                <rect key="frame" x="110" y="533" width="155" height="114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="MJ7-Q6-zGL" appends="YES" id="Pdc-bl-XTK"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.17438748478889465" green="0.36092591285705566" blue="0.67272830009460449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="MJ7-Q6-zGL" appends="YES" id="gMs-Sb-79n"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="btnLogin" destination="3Fa-b6-a4M" id="gIE-mI-lwJ"/>
+                        <outlet property="btnLogin" destination="3Fa-b6-a4M" id="mpk-hN-NkE"/>
                         <outlet property="btnRegister" destination="L12-5g-qau" id="rCh-CW-Oiu"/>
                         <outlet property="emailTf" destination="96O-F2-8JK" id="hb0-sB-6CH"/>
                         <outlet property="loginEmailTf" destination="0fj-nR-RHU" id="U3A-Qf-YA2"/>
@@ -115,9 +124,16 @@
                         <outlet property="optionSegmentedControl" destination="dog-Z3-pzV" id="LE7-Nj-3fj"/>
                         <outlet property="passwordTf" destination="IGg-E2-Z4o" id="hw4-zA-4dc"/>
                         <outlet property="registerFormContainer" destination="xeb-ys-a7N" id="TwN-Wu-1JH"/>
+                        <outlet property="registerPhoto" destination="t7U-sc-UhN" id="YrZ-DI-Nx7"/>
+                        <segue destination="B97-j4-mDF" kind="show" identifier="viewMainSegue" id="f72-L9-JZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="MJ7-Q6-zGL">
+                    <connections>
+                        <action selector="selectImage:" destination="BYZ-38-t0r" id="Cys-ad-tFk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-178.40000000000001" y="26.53673163418291"/>
         </scene>
@@ -138,6 +154,16 @@
                                 <segue destination="lkG-xW-FR1" kind="unwind" unwindAction="unwindToDefaultViewControllerWithSender:" id="6Eb-74-93y"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="S1k-Pp-prX">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RQB-0g-BHY">
+                                <rect key="frame" x="313" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="GSM-zO-XqR" kind="show" id="qSF-YA-Gzr"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
@@ -145,6 +171,34 @@
                 <exit id="lkG-xW-FR1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1310" y="27"/>
+        </scene>
+        <!--Contact View Controller-->
+        <scene sceneID="Zdn-3Q-PK7">
+            <objects>
+                <tableViewController id="GSM-zO-XqR" customClass="ContactViewController" customModule="FirebaseChatApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u8H-Zj-Jem">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mnD-Vd-7KR">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mnD-Vd-7KR" id="IXJ-yP-KVf">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="GSM-zO-XqR" id="Up1-sq-BHj"/>
+                            <outlet property="delegate" destination="GSM-zO-XqR" id="PpN-mu-QTB"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="INj-15-XhG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2135" y="41"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Obg-xz-6O9">
@@ -164,18 +218,11 @@
             </objects>
             <point key="canvasLocation" x="543" y="16"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="NGz-2u-y54">
-            <objects>
-                <viewController id="nXz-wA-hwF" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1we-b0-8Ng">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="128"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gHJ-lw-00k" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
+    <resources>
+        <image name="default" width="320" height="320"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="f72-L9-JZa"/>
+    </inferredMetricsTieBreakers>
 </document>
