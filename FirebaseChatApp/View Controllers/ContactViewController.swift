@@ -9,11 +9,16 @@
 import UIKit
 import Firebase
 
+var clickedUsername: String = ""
+var toId: String = ""
+
 class ContactViewController: UITableViewController {
     
     let cellId = "cellId"
+    var userIds: [String] = []
     var users: [String] = []
     var userEmails: [String] = []
+    var profileImageUrls: [String] = []
     var array: [User] = []
     var dict: [String: AnyObject] = [:]
     
@@ -21,6 +26,7 @@ class ContactViewController: UITableViewController {
         super.viewDidLoad()
         getUsers()
         CheckUserStatus()
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     
     func CheckUserStatus() {
@@ -43,12 +49,27 @@ class ContactViewController: UITableViewController {
     }
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        
+//        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let user = users[indexPath.row]
         let email = userEmails[indexPath.row]
+        let profileImage = profileImageUrls[indexPath.row]
         cell.textLabel?.text = user
         cell.detailTextLabel?.text = email
+//
+//        cell.imageView?.image = UIImage(named: "default.png")
+        print(profileImage)
+        let url = URL(string: profileImage)
+        let data = try? Data(contentsOf: url!)
+
+        cell.profileImageView.image = UIImage(data: data!)
+//        cell.profileImageView.image = UIImage(data: data!)
+//        cell.profileImageView.image = UIImage(data: data!)
+
+//        cell.imageView?.image = UIImage(data: data!)
+    
+    
+        
         return cell
     }
     
@@ -63,10 +84,11 @@ class ContactViewController: UITableViewController {
             if let data = snapshot.value as? Dictionary<String, AnyObject>
             {
                 self.dict = data
-                
+                self.userIds.append(snapshot.key)
                 print(self.dict["name"])
                 self.users.append(self.dict["name"] as! String)
                 self.userEmails.append(self.dict["email"] as! String)
+                self.profileImageUrls.append(self.dict["profileImage"] as! String)
             }
             
 //            if let test = snapshot.value as? User
@@ -88,6 +110,50 @@ class ContactViewController: UITableViewController {
 //            }
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        clickedUsername = users[indexPath.row]
+        toId = userIds[indexPath.row]
+        performSegue(withIdentifier: "contactChatSegue", sender: self)
+    }
+}
 
-
+class UserCell: UITableViewCell {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textLabel?.frame = CGRect(x: 56, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+        
+        detailTextLabel?.frame = CGRect(x: 56, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
+    }
+    
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named:"default.png")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 20
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        addSubview(profileImageView)
+        
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

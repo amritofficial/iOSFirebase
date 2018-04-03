@@ -19,6 +19,8 @@
 		AE7066AA206EEB9F00E4DEAE /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7066A9206EEB9F00E4DEAE /* ContactViewController.swift */; };
 		AE7066AC206F0FAB00E4DEAE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7066AB206F0FAB00E4DEAE /* User.swift */; };
 		AE7066AE20701F2100E4DEAE /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = AE7066AD20701F2100E4DEAE /* default.png */; };
+		AE7066B02071690800E4DEAE /* ChatMessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7066AF2071690800E4DEAE /* ChatMessagesController.swift */; };
+		AE7066B22073216A00E4DEAE /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7066B12073216A00E4DEAE /* MessageModel.swift */; };
 		B1875216367B8AE054ABCD4F /* Pods_FirebaseChatAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE729ED4DDE5E81C32872F1A /* Pods_FirebaseChatAppUITests.framework */; };
 		B9A2319BF75C8DCF832A95C0 /* Pods_FirebaseChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00FBAF987695A9D6FF64FA9 /* Pods_FirebaseChatApp.framework */; };
 		FA4C767A625960307E6B0147 /* Pods_FirebaseChatAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756DEE1EF46E4AE512F6A9DE /* Pods_FirebaseChatAppTests.framework */; };
@@ -62,6 +64,8 @@
 		AE7066A9206EEB9F00E4DEAE /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		AE7066AB206F0FAB00E4DEAE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AE7066AD20701F2100E4DEAE /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		AE7066AF2071690800E4DEAE /* ChatMessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesController.swift; sourceTree = "<group>"; };
+		AE7066B12073216A00E4DEAE /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		B00FBAF987695A9D6FF64FA9 /* Pods_FirebaseChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EA91645052443B230A9F71 /* Pods-FirebaseChatAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseChatAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseChatAppUITests/Pods-FirebaseChatAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C8CD491121DA7ED60340F7D8 /* Pods-FirebaseChatAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseChatAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseChatAppTests/Pods-FirebaseChatAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				AE706676206AC1FE00E4DEAE /* ViewController.swift */,
 				AE7066A5206AC44700E4DEAE /* MainViewController.swift */,
 				AE7066A9206EEB9F00E4DEAE /* ContactViewController.swift */,
+				AE7066AF2071690800E4DEAE /* ChatMessagesController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			children = (
 				AE706674206AC1FE00E4DEAE /* AppDelegate.swift */,
 				AE7066AB206F0FAB00E4DEAE /* User.swift */,
+				AE7066B12073216A00E4DEAE /* MessageModel.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -507,7 +513,9 @@
 			files = (
 				AE7066A6206AC44700E4DEAE /* MainViewController.swift in Sources */,
 				AE7066AA206EEB9F00E4DEAE /* ContactViewController.swift in Sources */,
+				AE7066B22073216A00E4DEAE /* MessageModel.swift in Sources */,
 				AE706677206AC1FE00E4DEAE /* ViewController.swift in Sources */,
+				AE7066B02071690800E4DEAE /* ChatMessagesController.swift in Sources */,
 				AE7066AC206F0FAB00E4DEAE /* User.swift in Sources */,
 				AE706675206AC1FE00E4DEAE /* AppDelegate.swift in Sources */,
 			);

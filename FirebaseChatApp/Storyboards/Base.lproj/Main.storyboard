@@ -144,6 +144,13 @@
                     <view key="view" contentMode="scaleToFill" id="tfc-Qn-uyh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gQT-kj-Vh8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Ra8-0W-d8V"/>
                     </view>
@@ -166,11 +173,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="QT8-bT-bnK" kind="show" identifier="mainChatSegue" id="OYE-I7-y62"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="st3-OP-QuL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="lkG-xW-FR1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1310" y="27"/>
+            <point key="canvasLocation" x="1309.5999999999999" y="26.53673163418291"/>
         </scene>
         <!--Contact View Controller-->
         <scene sceneID="Zdn-3Q-PK7">
@@ -195,10 +205,100 @@
                             <outlet property="delegate" destination="GSM-zO-XqR" id="PpN-mu-QTB"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="QT8-bT-bnK" kind="show" identifier="contactChatSegue" id="8XE-ZQ-DQY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="INj-15-XhG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2135" y="41"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BPZ-Nb-Eti">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5GK-cG-A5j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="kiZ-1F-W1t" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CUn-Mi-4W9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LpH-km-QPJ">
+                                <rect key="frame" x="0.0" y="73" width="375" height="522"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Lw5-v4-sAQ"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3015.1999999999998" y="26.53673163418291"/>
+        </scene>
+        <!--Chat Messages Controller-->
+        <scene sceneID="QcD-V4-Fwv">
+            <objects>
+                <collectionViewController id="QT8-bT-bnK" customClass="ChatMessagesController" customModule="FirebaseChatApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Kbu-5d-w4Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dJk-DH-6pw">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="J5a-AY-FNx">
+                            <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggq-MR-0SA">
+                                    <rect key="frame" x="0.0" y="614" width="375" height="3"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
+                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Message...." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SbU-Lp-Id7">
+                                    <rect key="frame" x="8" y="619" width="296" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgk-Ed-sdm">
+                                    <rect key="frame" x="312" y="625" width="46" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Send"/>
+                                    <connections>
+                                        <action selector="sendMessageWithSender:" destination="QT8-bT-bnK" eventType="touchUpInside" id="Hlv-37-130"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fAd-JM-veG">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="QT8-bT-bnK" id="Aeb-3a-TSw"/>
+                            <outlet property="delegate" destination="QT8-bT-bnK" id="SYy-Ww-rpE"/>
+                        </connections>
+                    </collectionView>
+                    <connections>
+                        <outlet property="btnSendMessage" destination="jgk-Ed-sdm" id="5Vw-Nu-Dwo"/>
+                        <outlet property="messageTextField" destination="SbU-Lp-Id7" id="e67-CQ-Klq"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p7h-Vu-XFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2416.8000000000002" y="-685.00749625187416"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Obg-xz-6O9">
@@ -224,5 +324,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f72-L9-JZa"/>
+        <segue reference="OYE-I7-y62"/>
     </inferredMetricsTieBreakers>
 </document>
