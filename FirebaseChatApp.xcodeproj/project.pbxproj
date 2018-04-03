@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE0C2167207411DB0087D37C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0C2166207411DB0087D37C /* UserCell.swift */; };
 		AE706675206AC1FE00E4DEAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE706674206AC1FE00E4DEAE /* AppDelegate.swift */; };
 		AE706677206AC1FE00E4DEAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE706676206AC1FE00E4DEAE /* ViewController.swift */; };
 		AE70667A206AC1FE00E4DEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE706678206AC1FE00E4DEAE /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		756DEE1EF46E4AE512F6A9DE /* Pods_FirebaseChatAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseChatAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0A4AC326A638CA42FACDE1 /* Pods-FirebaseChatAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseChatAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseChatAppUITests/Pods-FirebaseChatAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		AE0C2166207411DB0087D37C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		AE706671206AC1FE00E4DEAE /* FirebaseChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE706674206AC1FE00E4DEAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE706676206AC1FE00E4DEAE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				AE706674206AC1FE00E4DEAE /* AppDelegate.swift */,
 				AE7066AB206F0FAB00E4DEAE /* User.swift */,
 				AE7066B12073216A00E4DEAE /* MessageModel.swift */,
+				AE0C2166207411DB0087D37C /* UserCell.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE0C2167207411DB0087D37C /* UserCell.swift in Sources */,
 				AE7066A6206AC44700E4DEAE /* MainViewController.swift in Sources */,
 				AE7066AA206EEB9F00E4DEAE /* ContactViewController.swift in Sources */,
 				AE7066B22073216A00E4DEAE /* MessageModel.swift in Sources */,

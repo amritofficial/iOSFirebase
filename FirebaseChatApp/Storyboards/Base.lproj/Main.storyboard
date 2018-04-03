@@ -149,6 +149,10 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Xg0-RS-rRS" id="6Eu-On-4i9"/>
+                                    <outlet property="delegate" destination="Xg0-RS-rRS" id="Tsa-bt-91z"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -174,6 +178,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="myTableView" destination="gQT-kj-Vh8" id="FkF-L1-gDz"/>
                         <segue destination="QT8-bT-bnK" kind="show" identifier="mainChatSegue" id="OYE-I7-y62"/>
                     </connections>
                 </viewController>
@@ -216,7 +221,6 @@
         <!--View Controller-->
         <scene sceneID="BPZ-Nb-Eti">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5GK-cG-A5j" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="kiZ-1F-W1t" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CUn-Mi-4W9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -232,6 +236,7 @@
                         <viewLayoutGuide key="safeArea" id="Lw5-v4-sAQ"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5GK-cG-A5j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3015.1999999999998" y="26.53673163418291"/>
         </scene>

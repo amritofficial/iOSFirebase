@@ -10,12 +10,59 @@
 import UIKit
 import Firebase
 
-class MainViewController: UIViewController, UITableViewDelegate{
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userMessages.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cellId")
+        let cell = myTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
+        
+        let message = userMessages[indexPath.row]
+        let toId = messageToId[indexPath.row]
+        
+      
+        let ref = Database.database().reference().child("users").child(toId)
+        ref.observeSingleEvent(of: .value, with: {
+            (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject]
+            {
+                cell.textLabel?.text = dictionary["name"] as? String
+                
+                if let profileImageUrl = dictionary["profileImage"] as? String {
+                    
+                    let url = URL(string: profileImageUrl)
+                    let data = try? Data(contentsOf: url!)
+                    
+                    cell.profileImageView.image = UIImage(data: data!)
+                }
+            }
+        }, withCancel: nil)
+        
+        
+        cell.detailTextLabel?.text = message
+        cell.textLabel?.text = toId
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
     
     @IBOutlet var btnJump: UIButton!
+    @IBOutlet var myTableView: UITableView!
+    
+    let cellId = "cellId"
     
     var url: String = ""
     var userName: String = ""
+    var userMessages: [String] = []
+    var messageToId: [String] = []
+    var messageFromId: [String] = []
     @IBOutlet var findContactButton: UIButton!
     
     var messages = [MessageModel]()
@@ -27,6 +74,8 @@ class MainViewController: UIViewController, UITableViewDelegate{
         CheckUserStatus()
         print("CheckUser Status")
         getMessagesOnMain()
+        
+        myTableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     
     // This method will bring the users and mesages whom YOU sent messages
@@ -40,8 +89,15 @@ class MainViewController: UIViewController, UITableViewDelegate{
             
             if let dictionary = snapshot.value as? Dictionary<String, AnyObject>{
                 self.dict = dictionary
+                self.userMessages.append(dictionary["text"] as! String)
+                self.messageToId.append(dictionary["toId"] as! String)
+                print(self.dict["text"])
                 self.array.append(self.dict)
-                print()
+                
+                DispatchQueue.main.async {
+                    self.myTableView.reloadData()
+                }
+//                print(self.array[0]["text"] as Any)
             
 //                print(self.messages[0].text)
             }
@@ -50,14 +106,7 @@ class MainViewController: UIViewController, UITableViewDelegate{
         }, withCancel: nil)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
-        cell.textLabel?.text = "test"
-    }
     
     func CheckUserStatus() {
         if Auth.auth().currentUser?.uid == nil {
