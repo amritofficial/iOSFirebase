@@ -13,7 +13,7 @@ import Firebase
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userMessages.count
+        return messages.count
     }
     
     
@@ -21,37 +21,49 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cellId")
         let cell = myTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         
-        let message = userMessages[indexPath.row]
-        let toId = messageToId[indexPath.row]
-        let timestamps = messageTimeStamps[indexPath.row]
+        let message = messages[indexPath.row]
+//        let toId = messageToId[indexPath.row]
+//        let timestamps = messageTimeStamps[indexPath.row]
         
-        print("::::: \(messages[indexPath.row].text as Any)")
-        
-        DispatchQueue.main.async {
-        let ref = Database.database().reference().child("users").child(toId)
-        ref.observeSingleEvent(of: .value, with: {
-            (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject]
-            {
-                cell.textLabel?.text = dictionary["name"] as? String
+        if let toId = message.toId {
+            let ref = Database.database().reference().child("users").child(toId)
+            ref.observe(.value, with: { (snapshot) in
                 
-                if let profileImageUrl = dictionary["profileImage"] as? String {
-                    
-                    let url = URL(string: profileImageUrl)
-                    let data = try? Data(contentsOf: url!)
-                    
-                    cell.profileImageView.image = UIImage(data: data!)
+                if let dict = snapshot.value as? [String: AnyObject] {
+                    cell.textLabel?.text = dict["name"] as? String
+                    if let profileImageUrl = dict["profileImage"] as? String {
+                        let url = URL(string: profileImageUrl)
+                        let data = try? Data(contentsOf: url!)
+                        cell.profileImageView.image = UIImage(data: data!)
+                    }
                 }
-            }
-        }, withCancel: nil)
-        
+                
+               
+                
+            }, withCancel: nil)
         }
-        cell.detailTextLabel?.text = message
-        cell.textLabel?.text = toId
         
-        cell.timeStamp.text = timestamps as! String
+//        let ref = Database.database().reference().child("users").child(toId)
+//        ref.observeSingleEvent(of: .value, with: {
+//            (snapshot) in
+//            if let dictionary = snapshot.value as? [String: AnyObject]
+//            {
+//                if let profileImageUrl = dictionary["profileImage"] as? String {
+//
+//                    let url = URL(string: profileImageUrl)
+//                    let data = try? Data(contentsOf: url!)
+//
+//                    cell.profileImageView.image = UIImage(data: data!)
+//                }
+//            }
+//        }, withCancel: nil)
         
-        if let myInteger = Int(timestamps) {
+        
+        cell.detailTextLabel?.text = message.text
+        
+//        cell.timeStamp.text = message.timestamp as! String
+        
+        if let myInteger = Int(message.timestamp!) {
             let myDate = NSNumber(value:myInteger)
             let seconds = myDate.doubleValue
             let timestampDate = NSDate(timeIntervalSince1970: seconds)
@@ -115,6 +127,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if let toId = message.toId {
                     self.messageDict[toId] = message
                     self.messages = Array(self.messageDict.values)
+                    
+                    // The method below would sort the messages by timestamp but the
+                    // timestamp needs to be in number
+//                    self.messages.sort(by: { (message1, message2) -> Bool in
+//
+//                    })
+                }
+                
+                DispatchQueue.main.async {
+                    self.myTableView.reloadData()
                 }
                 
             }
@@ -129,9 +151,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 self.array.append(self.dict)
                 
-                DispatchQueue.main.async {
-                    self.myTableView.reloadData()
-                }
+                
 //                print(self.array[0]["text"] as Any)
             
 //                print(self.messages[0].text)

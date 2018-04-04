@@ -49,7 +49,7 @@ class UserCell: UITableViewCell {
         timeStamp.centerYAnchor.constraint(equalTo: (textLabel?.centerYAnchor)!).isActive = true
         timeStamp.widthAnchor.constraint(equalToConstant: 100).isActive = true
         timeStamp.heightAnchor.constraint(equalTo: (textLabel?.heightAnchor)!).isActive = true
-//        timeStamp.topAnchor.constraint(equalTo: self.topAnchor, constant:10)
+        timeStamp.topAnchor.constraint(equalTo: self.topAnchor, constant:10).isActive = true
         
     }
     
