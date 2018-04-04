@@ -26,14 +26,30 @@ class UserCell: UITableViewCell {
         return imageView
     }()
     
+    let timeStamp: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         addSubview(profileImageView)
+        addSubview(timeStamp)
         
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        timeStamp.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        timeStamp.centerYAnchor.constraint(equalTo: (textLabel?.centerYAnchor)!).isActive = true
+        timeStamp.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timeStamp.heightAnchor.constraint(equalTo: (textLabel?.heightAnchor)!).isActive = true
+//        timeStamp.topAnchor.constraint(equalTo: self.topAnchor, constant:10)
         
     }
     

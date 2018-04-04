@@ -23,8 +23,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let message = userMessages[indexPath.row]
         let toId = messageToId[indexPath.row]
+        let timestamps = messageTimeStamps[indexPath.row]
         
-      
+        print("::::: \(messages[indexPath.row].text as Any)")
+        
+        DispatchQueue.main.async {
         let ref = Database.database().reference().child("users").child(toId)
         ref.observeSingleEvent(of: .value, with: {
             (snapshot) in
@@ -42,9 +45,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }, withCancel: nil)
         
-        
+        }
         cell.detailTextLabel?.text = message
         cell.textLabel?.text = toId
+        
+        cell.timeStamp.text = timestamps as! String
+        
+        if let myInteger = Int(timestamps) {
+            let myDate = NSNumber(value:myInteger)
+            let seconds = myDate.doubleValue
+            let timestampDate = NSDate(timeIntervalSince1970: seconds)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm:ss a"
+            cell.timeStamp.text = dateFormatter.string(from: timestampDate as Date)
+        }
         
         return cell
     }
@@ -63,11 +78,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var userMessages: [String] = []
     var messageToId: [String] = []
     var messageFromId: [String] = []
+    var messageTimeStamps: [String] = []
+    var messages =  [MessageModel]()
     @IBOutlet var findContactButton: UIButton!
     
-    var messages = [MessageModel]()
     var array = [Dictionary<String, AnyObject>]()
     var dict: [String: AnyObject] = [:]
+    var messageDict = [String: MessageModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +102,31 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let ref = Database.database().reference().child("messages")
         ref.observe(.childAdded, with: {
             (snapshot) in
-            let messageModel = MessageModel()
+            
+            if let dictionary = snapshot.value as? [String: Any] {
+                let message = MessageModel()
+                message.fromId = dictionary["fromId"] as! String
+                message.toId = dictionary["toId"] as! String
+                message.text = dictionary["text"] as! String
+                message.timestamp = dictionary["timestamp"] as! String
+                
+//                self.messages.append(message)
+                
+                if let toId = message.toId {
+                    self.messageDict[toId] = message
+                    self.messages = Array(self.messageDict.values)
+                }
+                
+            }
+            
             
             if let dictionary = snapshot.value as? Dictionary<String, AnyObject>{
                 self.dict = dictionary
                 self.userMessages.append(dictionary["text"] as! String)
                 self.messageToId.append(dictionary["toId"] as! String)
+                self.messageTimeStamps.append(dictionary["timestamp"] as! String)
                 print(self.dict["text"])
+                
                 self.array.append(self.dict)
                 
                 DispatchQueue.main.async {

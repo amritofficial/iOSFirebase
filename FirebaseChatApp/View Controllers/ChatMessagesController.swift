@@ -22,7 +22,8 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate {
         let date = Date()
         let timeInterval = date.timeIntervalSince1970
         let timestamp = Int(timeInterval)
-        let values = ["text":messageTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
+        let timeStampString = String(timestamp)
+        let values = ["text":messageTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timeStampString]
         childRef.updateChildValues(values)
         messageTextField.text = ""
     }
