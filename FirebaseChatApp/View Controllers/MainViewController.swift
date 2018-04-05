@@ -24,9 +24,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let message = messages[indexPath.row]
 //        let toId = messageToId[indexPath.row]
 //        let timestamps = messageTimeStamps[indexPath.row]
+        let chatPartnerId:String?
         
-        if let toId = message.toId {
-            let ref = Database.database().reference().child("users").child(toId)
+        if message.fromId == Auth.auth().currentUser?.uid {
+            chatPartnerId = message.toId!
+        } else {
+            chatPartnerId = message.fromId!
+        }
+        
+        if let id = chatPartnerId {
+            let ref = Database.database().reference().child("users").child(id)
             ref.observe(.value, with: { (snapshot) in
                 
                 if let dict = snapshot.value as? [String: AnyObject] {
@@ -76,6 +83,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    func setupNameAndAvataarIcon() {
+        
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -102,9 +114,56 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         CheckUserStatus()
         print("CheckUser Status")
-        getMessagesOnMain()
+        //getMessagesOnMain()
         
         myTableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+    
+    }
+    
+    func getDirectMessages() {
+        // The guard statement helps in meeting all the conditions for the variable
+        // before the code block is executed
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        let ref = Database.database().reference().child("direct-messages").child(uid)
+        ref.observe(.childAdded, with: {
+            (snapshot) in
+            let messageId = snapshot.key
+            // This is the message reference that will display all the messages to all the users
+            print("Snapshot:::: \(snapshot)")
+            let messageRef = Database.database().reference().child("messages").child(messageId)
+            
+            messageRef.observe(.value, with: {
+                (snapshot) in
+                print("Direct messages Snapshot:::: \(snapshot)")
+                
+                if let dictionary = snapshot.value as? [String: Any] {
+                    let message = MessageModel()
+                    message.fromId = dictionary["fromId"] as! String
+                    message.toId = dictionary["toId"] as! String
+                    message.text = dictionary["text"] as! String
+                    message.timestamp = dictionary["timestamp"] as! String
+                    
+                    //                self.messages.append(message)
+                    
+                    print("Messages::::: \(message.text)")
+                    if let toId = message.toId {
+                        self.messageDict[toId] = message
+                        self.messages = Array(self.messageDict.values)
+                        
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.myTableView.reloadData()
+                    }
+                    
+                }
+                
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
     }
     
     // This method will bring the users and mesages whom YOU sent messages
@@ -182,6 +241,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setNavbar() {
+        self.messages.removeAll()
+        self.messageDict.removeAll()
+        self.myTableView.reloadData()
+        
+        getDirectMessages()
+        
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         

@@ -24,7 +24,26 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate {
         let timestamp = Int(timeInterval)
         let timeStampString = String(timestamp)
         let values = ["text":messageTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timeStampString]
-        childRef.updateChildValues(values)
+        
+        //The code below would update all the values into the database for the mesasges
+//        childRef.updateChildValues(values)
+        
+        childRef.updateChildValues(values) {
+            (error, ref) in
+            
+            if error != nil {
+                print(error)
+            }
+            
+            let directMessageRef = Database.database().reference().child("direct-messages").child(fromId!)
+            
+            let messageId = childRef.key
+            directMessageRef.updateChildValues([messageId: 1])
+            
+            let recipientMessageRef = Database.database().reference().child("direct-messages").child(toId)
+            recipientMessageRef.updateChildValues([messageId: 1])
+            
+        }
         messageTextField.text = ""
     }
     
