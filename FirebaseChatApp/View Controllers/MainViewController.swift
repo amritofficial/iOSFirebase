@@ -10,6 +10,8 @@
 import UIKit
 import Firebase
 
+var clickedUserId: String = ""
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,13 +85,50 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    func setupNameAndAvataarIcon() {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        let secondPersonId: String?
         
+        if message.fromId == Auth.auth().currentUser?.uid {
+            secondPersonId = message.toId
+        } else {
+            secondPersonId = message.fromId
+        }
+        
+        clickedUserId = secondPersonId!
+        toId = secondPersonId!
+        performSegue(withIdentifier: "mainChatSegue", sender: self)
+        
+//        let ref = Database.database().reference().child("users").child(secondPersonId!)
+//        ref.observeSingleEvent(of: .childAdded, with: {
+//            (snapshot) in
+//            print("HERE::")
+//            if let dictionary = snapshot.value as? [String: Any] {
+//                clickedUsername = dictionary["name"] as! String
+//            }
+//
+//        }, withCancel: nil)
+        
+//        ref.observe(.childAdded, with: {
+//            (snapshot) in
+//
+//            if let
+//
+//
+//            let user = User()
+//            user.email = dict["email"] as! String
+//            user.name = dict["name"] as! String
+//            user.profileImage = dict["profileImage"] as! String
+//
+//            self.users.append(user)
+//        }, withCancel: nil)
         
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 65
     }
     
     @IBOutlet var btnJump: UIButton!
@@ -104,6 +143,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var messageFromId: [String] = []
     var messageTimeStamps: [String] = []
     var messages =  [MessageModel]()
+    var users = [User]()
     @IBOutlet var findContactButton: UIButton!
     
     var array = [Dictionary<String, AnyObject>]()
@@ -115,6 +155,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         CheckUserStatus()
         print("CheckUser Status")
         //getMessagesOnMain()
+        self.myTableView.delegate = self
+        self.myTableView.dataSource = self
         
         myTableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     
