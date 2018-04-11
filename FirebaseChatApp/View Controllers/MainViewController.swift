@@ -191,8 +191,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //                self.messages.append(message)
                     
                     print("Messages::::: \(message.text)")
-                    if let toId = message.toId {
-                        self.messageDict[toId] = message
+                    
+                    let chatPartnerId:String?
+                    
+                    if message.fromId == Auth.auth().currentUser?.uid {
+                        chatPartnerId = message.toId!
+                    } else {
+                        chatPartnerId = message.fromId!
+                    }
+                    
+                    if let correctId = chatPartnerId {
+                        self.messageDict[correctId] = message
                         self.messages = Array(self.messageDict.values)
                         
                     }

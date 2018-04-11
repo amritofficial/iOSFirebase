@@ -14,6 +14,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
     
     let cellId = "cellId"
     var messages = [MessageModel]()
+    var profileImageUrl: String?
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var btnSendMessage: UIButton!
     
@@ -60,11 +61,52 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         let message = messages[indexPath.row]
         cell.textView.text = message.text
         
+        print("profileImageURL::: \(profileImageUrl)")
+//        let profileImageUrl =
+        let url = URL(string: self.profileImageUrl!)
+        let data = try? Data(contentsOf: url!)
+        cell.profileImageView.image = UIImage(data: data!)
+        
+        
+        // The code below would set up the message bubbles depending upon the sender/receiver
+        // they will be gray and blue depending upon the same
+        if message.fromId == Auth.auth().currentUser?.uid {
+            //Make a blue bubble
+            cell.bubbleView.backgroundColor = UIColor.init(red: 53.0/255, green: 187/255, blue: 255/255, alpha: 1.0)
+            cell.textView.textColor = UIColor.white
+            cell.profileImageView.isHidden = true
+            cell.bubbleViewRightAnchor?.isActive = true
+            cell.bubbleViewLeftAnchor?.isActive = false
+        } else {
+            //Make a grey bubble
+            cell.bubbleView.backgroundColor = UIColor.init(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+            cell.textView.textColor = UIColor.black
+            cell.profileImageView.isHidden = false
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
+        }
+        
+        cell.bubbleViewWidth?.constant = calculateFrameForText(text: message.text!).width + 32
+        
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 60)
+        var height: CGFloat = 60
+        
+        if let text = messages[indexPath.row].text {
+            height = calculateFrameForText(text: text).height + 20
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
+    }
+    
+    private func calculateFrameForText(text: String) -> CGRect {
+        let size = CGSize(width: 200, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
     
     
@@ -77,6 +119,8 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         setUpNavbarTitle()
         print(clickedUserId)
         
+        collectionView?.contentInset = UIEdgeInsetsMake(8, 0, 58, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(8, 0, 58, 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         // Do any additional setup after loading the view.
@@ -90,6 +134,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     print("NNNNN: \(dictionary["name"])")
                     self.navigationItem.title = dictionary["name"] as? String
+                    self.profileImageUrl = dictionary["profileImage"] as? String
                     self.getMessageLog()
                 }
             }, withCancel: nil)
