@@ -98,6 +98,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         clickedUserId = secondPersonId!
         toId = secondPersonId!
+        
+        let ref = Database.database().reference().child("users").child(clickedUserId)
+        ref.observe(.value, with: {
+            (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                profileImageUrl = dictionary["profileImage"] as! String
+            }
+            
+        }, withCancel: nil)
         performSegue(withIdentifier: "mainChatSegue", sender: self)
         
 //        let ref = Database.database().reference().child("users").child(secondPersonId!)

@@ -28,7 +28,6 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonActionRegisterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EbP-L8-pbA"/>
-                                    <segue destination="B97-j4-mDF" kind="presentation" identifier="showMainSegue" id="qay-SK-4TJ"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xeb-ys-a7N">
@@ -328,7 +327,6 @@
         <image name="default" width="320" height="320"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="f72-L9-JZa"/>
         <segue reference="OYE-I7-y62"/>
     </inferredMetricsTieBreakers>
 </document>

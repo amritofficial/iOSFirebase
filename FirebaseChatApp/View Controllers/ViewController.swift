@@ -79,6 +79,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             })
                         }
                         self.signInUserFromRegisterForm()
+                        self.performSegue(withIdentifier: "viewMainSegue", sender: UIButton.self)
                         print("URL::! \(profileImage)")
                         
 //                        if let uploadImageData = UIImagePNGRepresentation((self.registerPhoto.image)!){
