@@ -9,12 +9,13 @@
 import UIKit
 import Firebase
 
+var profileImageUrl: String?
 class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout
 {
     
     let cellId = "cellId"
     var messages = [MessageModel]()
-    var profileImageUrl: String?
+    
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var btnSendMessage: UIButton!
     
@@ -63,7 +64,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         
         print("profileImageURL::: \(profileImageUrl)")
 //        let profileImageUrl =
-        let url = URL(string: self.profileImageUrl!)
+        let url = URL(string: profileImageUrl!)
         let data = try? Data(contentsOf: url!)
         cell.profileImageView.image = UIImage(data: data!)
         
@@ -117,7 +118,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavbarTitle()
-        print(clickedUserId)
+        print("Clicked UserID from Chat Log Controller ::: \(clickedUserId)")
         
         collectionView?.contentInset = UIEdgeInsetsMake(8, 0, 58, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(8, 0, 58, 0)
@@ -134,10 +135,13 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     print("NNNNN: \(dictionary["name"])")
                     self.navigationItem.title = dictionary["name"] as? String
-                    self.profileImageUrl = dictionary["profileImage"] as? String
+                    profileImageUrl = dictionary["profileImage"] as? String
                     self.getMessageLog()
                 }
             }, withCancel: nil)
+        } else {
+            self.navigationItem.title = clickedUsername as? String
+            self.getMessageLog()
         }
     }
     

@@ -17,6 +17,9 @@ class ContactViewController: UITableViewController {
     let cellId = "cellId"
     var userIds: [String] = []
     var users: [String] = []
+    
+    var usersArray = [User]()
+    
     var userEmails: [String] = []
     var profileImageUrls: [String] = []
     var array: [User] = []
@@ -91,6 +94,18 @@ class ContactViewController: UITableViewController {
                 self.profileImageUrls.append(self.dict["profileImage"] as! String)
             }
             
+            if let dictionary = snapshot.value as? [String: AnyObject]
+            {
+                let user = User()
+                user.name = dictionary["name"] as? String
+                user.email = dictionary["email"] as? String
+                user.profileImage = dictionary["profileImage"] as? String
+                
+                self.usersArray.append(user)
+                print("Name is printed below:::::--------->")
+                print(user.name, user.email)
+            }
+            
 //            if let test = snapshot.value as? User
 //            {
 //                self.array.append(test)
@@ -119,8 +134,13 @@ class ContactViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        clickedUsername = users[indexPath.row]
+        print("Clicked Username::: \(self.usersArray[indexPath.row].name)")
+        clickedUsername = usersArray[indexPath.row].name!
+        
+        //This profileImageUrl is a global variable that is to pass the profile image url to another class
+        profileImageUrl = usersArray[indexPath.row].profileImage!
         toId = userIds[indexPath.row]
+        clickedUserId = userIds[indexPath.row]
         performSegue(withIdentifier: "contactChatSegue", sender: self)
     }
 }
