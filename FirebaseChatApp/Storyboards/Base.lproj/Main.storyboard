@@ -96,21 +96,18 @@
                                     <action selector="loginActionWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XiZ-wL-iaL"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="t7U-sc-UhN">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="t7U-sc-UhN">
                                 <rect key="frame" x="110" y="533" width="155" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="MJ7-Q6-zGL" appends="YES" id="Pdc-bl-XTK"/>
+                                    <outletCollection property="gestureRecognizers" destination="982-Xc-SKI" appends="YES" id="Ib2-Ib-6vb"/>
                                 </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.17438748478889465" green="0.36092591285705566" blue="0.67272830009460449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="MJ7-Q6-zGL" appends="YES" id="gMs-Sb-79n"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="btnLogin" destination="3Fa-b6-a4M" id="mpk-hN-NkE"/>
@@ -128,9 +125,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="MJ7-Q6-zGL">
+                <tapGestureRecognizer id="982-Xc-SKI">
                     <connections>
-                        <action selector="selectImage:" destination="BYZ-38-t0r" id="Cys-ad-tFk"/>
+                        <action selector="selectImage:" destination="BYZ-38-t0r" id="pOm-H5-cGC"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -166,9 +163,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="S1k-Pp-prX">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RQB-0g-BHY">
-                                <rect key="frame" x="313" y="7" width="46" height="30"/>
+                                <rect key="frame" x="297" y="7" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Contacts"/>
                                 <connections>
                                     <segue destination="GSM-zO-XqR" kind="show" id="qSF-YA-Gzr"/>
                                 </connections>
@@ -277,6 +274,11 @@
                                         <action selector="sendMessageWithSender:" destination="QT8-bT-bnK" eventType="touchUpInside" id="Hlv-37-130"/>
                                     </connections>
                                 </button>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wGQ-bB-pJW">
+                                    <rect key="frame" x="169" y="294" width="37" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -296,6 +298,7 @@
                         </connections>
                     </collectionView>
                     <connections>
+                        <outlet property="activity" destination="wGQ-bB-pJW" id="iBd-tA-7xx"/>
                         <outlet property="btnSendMessage" destination="jgk-Ed-sdm" id="5Vw-Nu-Dwo"/>
                         <outlet property="messageTextField" destination="SbU-Lp-Id7" id="e67-CQ-Klq"/>
                     </connections>

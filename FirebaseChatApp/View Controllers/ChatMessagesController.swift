@@ -13,14 +13,17 @@ var profileImageUrl: String?
 class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout
 {
     
+    
     let cellId = "cellId"
     var messages = [MessageModel]()
     
+    @IBOutlet var activity: UIActivityIndicatorView!
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var btnSendMessage: UIButton!
     
     @IBAction func sendMessage(sender: UIButton!) {
         let ref = Database.database().reference().child("messages")
+        ref.keepSynced(true)
         let childRef = ref.childByAutoId()
         let fromId = Auth.auth().currentUser?.uid
         let date = Date()
@@ -117,6 +120,8 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        activity.isHidden = false
+        activity.startAnimating()
         setUpNavbarTitle()
         print("Clicked UserID from Chat Log Controller ::: \(clickedUserId)")
         
@@ -130,6 +135,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
     func setUpNavbarTitle() {
         if clickedUsername == "" {
             let ref = Database.database().reference().child("users").child(clickedUserId);
+            ref.keepSynced(true)
             ref.observeSingleEvent(of: .value, with: {
                 (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -149,12 +155,13 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         let uid = Auth.auth().currentUser?.uid
         print("GET MESSAGE LOG FUNCTION HAS BEEN EXECUTED!!!")
         let userMessagesRef = Database.database().reference().child("direct-messages").child(uid!)
-        
+        userMessagesRef.keepSynced(true)
         userMessagesRef.observe(.childAdded, with: {
             (snapshot) in
             
             let messageId = snapshot.key
             let messageRef = Database.database().reference().child("messages").child(messageId)
+            messageRef.keepSynced(true)
             messageRef.observeSingleEvent(of: .value, with: {
                 (snapshot) in
                 
@@ -183,6 +190,8 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
                     }
                 }
                
+                self.activity.stopAnimating()
+                self.activity.isHidden = true
                 print(message.text)
                 
             }, withCancel: nil)

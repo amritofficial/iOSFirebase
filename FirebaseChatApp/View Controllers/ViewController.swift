@@ -160,7 +160,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Login Form Action")
     }
     
-    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+//    @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+//
+//        print(123)
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.sourceType = .photoLibrary
+//        imagePicker.delegate = self
+//        imagePicker.allowsEditing = true
+//        present(imagePicker, animated: true, completion: nil)
+//    }
+    
+    @IBAction func selectImage(_ sender: Any) {
+        print("123456")
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
@@ -225,6 +236,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         loginEmailTf.isHidden = true
         loginPasswordTf.isHidden = true
         btnLogin.isHidden = true
+        registerPhoto.isHidden = false
     }
     
     func hideRegisterForm() {
@@ -244,7 +256,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         var ref: DatabaseReference!
         ref = Database.database().reference()
-       
         
         // Do any additional setup after loading the view, typically from a nib.
     }
