@@ -14,6 +14,7 @@ import Firebase
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet var registerPhoto: UIImageView!
+    @IBOutlet var btnAbout: UIButton!
     
     @IBOutlet var btnRegister: UIButton!
     // Below are the fields that are used by register form for user information
@@ -140,6 +141,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("Success!!!!!!")
             }
         }
+    }
+    
+    @IBAction func unwindToViewController(sender: UIStoryboardSegue) {
+        
     }
     
     // calls a Sign in User function

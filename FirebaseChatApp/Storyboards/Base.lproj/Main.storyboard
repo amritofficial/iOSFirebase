@@ -10,6 +10,63 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--About-->
+        <scene sceneID="x4C-TW-UJD">
+            <objects>
+                <viewController id="rXJ-qD-rfp" customClass="AboutUsViewController" customModule="FirebaseChatApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QbH-Op-rcV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gaL-QA-FZs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d3x-cz-UIX">
+                                <rect key="frame" x="16" y="80" width="343" height="567"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="RiQ-ml-7uf">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="567"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m02-M8-c1A">
+                                            <rect key="frame" x="100" y="27" width="142" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                            <color key="textColor" red="1" green="0.25130966329999999" blue="0.27395060500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="w2t-rr-gVu">
+                                            <rect key="frame" x="8" y="145" width="327" height="250"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <string key="text">The app is a based on the subjects of Whattsapp and utilizes a Real-Time Firebase database that allows, the user to see the updated information in real-time without having to wait like the normal SQL Database. The app also utilzes Firebase storage which is used to store the selected avatar by the user. The app internally processes the image and performs a compression to store into a database. The app also makes use of custom assets developed in Adobe XD and Photoshop.</string>
+                                            <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Mbd-ny-dLi"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="mcl-yv-Qjw">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="tlD-GL-DfC">
+                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="jto-W3-AAA" kind="unwind" unwindAction="unwindToDefaultViewControllerWithSender:" id="8j3-eW-3HT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pTF-Wd-1YZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jto-W3-AAA" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-656.79999999999995" y="26.53673163418291"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -78,6 +135,19 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.99034621879184959" blue="0.0" alpha="0.21131207191780821" colorSpace="custom" customColorSpace="sRGB"/>
                             </containerView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" background="textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-nR-RHU">
+                                <rect key="frame" x="23" y="287" width="329" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" background="textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-1P-qWx">
+                                <rect key="frame" x="23" y="338" width="329" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-b6-a4M">
                                 <rect key="frame" x="16" y="409" width="343" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -98,25 +168,23 @@
                                     <outletCollection property="gestureRecognizers" destination="982-Xc-SKI" appends="YES" id="Ib2-Ib-6vb"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" background="textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="0fj-nR-RHU">
-                                <rect key="frame" x="23" y="287" width="329" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiq-6I-GtA">
+                                <rect key="frame" x="16" y="614" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" background="textfield.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Zl-1P-qWx">
-                                <rect key="frame" x="23" y="338" width="329" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                            </textField>
+                                <state key="normal" title="About" image="aboutWhite.png">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BsW-XH-R5b" kind="presentation" id="55g-wv-ZtW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.17438748478889465" green="0.36092591285705566" blue="0.67272830009460449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="btnAbout" destination="yiq-6I-GtA" id="ZxN-cs-WST"/>
                         <outlet property="btnLogin" destination="3Fa-b6-a4M" id="mpk-hN-NkE"/>
                         <outlet property="btnRegister" destination="L12-5g-qau" id="rCh-CW-Oiu"/>
                         <outlet property="emailTf" destination="96O-F2-8JK" id="hb0-sB-6CH"/>
@@ -138,7 +206,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-178.40000000000001" y="26.53673163418291"/>
+            <point key="canvasLocation" x="160.80000000000001" y="26.53673163418291"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="7we-V4-9yx">
@@ -188,7 +256,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="st3-OP-QuL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="lkG-xW-FR1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1309.5999999999999" y="26.53673163418291"/>
+            <point key="canvasLocation" x="1648.8" y="26.53673163418291"/>
         </scene>
         <!--Contact View Controller-->
         <scene sceneID="Zdn-3Q-PK7">
@@ -219,7 +287,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="INj-15-XhG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2135" y="41"/>
+            <point key="canvasLocation" x="2472.8000000000002" y="40.929535232383813"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="BPZ-Nb-Eti">
@@ -241,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5GK-cG-A5j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3015.1999999999998" y="26.53673163418291"/>
+            <point key="canvasLocation" x="3354.4000000000001" y="26.53673163418291"/>
         </scene>
         <!--Chat Messages Controller-->
         <scene sceneID="QcD-V4-Fwv">
@@ -330,10 +398,36 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p4z-YV-YLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="543" y="16"/>
+            <point key="canvasLocation" x="880.79999999999995" y="15.742128935532236"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="68f-lS-0yv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BsW-XH-R5b" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SL8-6c-kz9">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.25130966329999999" blue="0.27395060500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rXJ-qD-rfp" kind="relationship" relationship="rootViewController" id="ZeF-5x-STl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5Z-DJ-Tgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1402" y="27"/>
         </scene>
     </scenes>
     <resources>
+        <image name="aboutWhite.png" width="512" height="512"/>
         <image name="background.jpg" width="750" height="1334"/>
         <image name="default" width="320" height="320"/>
         <image name="textfield.png" width="375" height="100"/>
