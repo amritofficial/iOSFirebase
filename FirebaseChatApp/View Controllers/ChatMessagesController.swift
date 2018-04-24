@@ -17,7 +17,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
     let cellId = "cellId"
     var messages = [MessageModel]()
     
-    @IBOutlet var activity: UIActivityIndicatorView!
+   
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var btnSendMessage: UIButton!
     
@@ -120,8 +120,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        activity.isHidden = false
-        activity.startAnimating()
+        
         setUpNavbarTitle()
         print("Clicked UserID from Chat Log Controller ::: \(clickedUserId)")
         
@@ -190,8 +189,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
                     }
                 }
                
-                self.activity.stopAnimating()
-                self.activity.isHidden = true
+                
                 print(message.text)
                 
             }, withCancel: nil)
