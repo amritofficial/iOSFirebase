@@ -25,13 +25,16 @@ class ContactViewController: UITableViewController {
     var array: [User] = []
     var dict: [String: AnyObject] = [:]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUsers()
         CheckUserStatus()
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
     }
     
+    // Checks the status of user
     func CheckUserStatus() {
         if Auth.auth().currentUser?.uid == nil {
             
@@ -76,6 +79,7 @@ class ContactViewController: UITableViewController {
         return cell
     }
     
+    // fetches the user to the contact list (TableView)
     func getUsers() {
         Database.database().reference().child("users").observe(.childAdded) { (snapshot) in
             

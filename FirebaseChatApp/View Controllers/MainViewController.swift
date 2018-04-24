@@ -10,6 +10,7 @@
 import UIKit
 import Firebase
 
+// this is a global variable to get user id of the row that is clicked in different views
 var clickedUserId: String = ""
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
@@ -28,16 +29,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        let timestamps = messageTimeStamps[indexPath.row]
         let chatPartnerId:String?
         
+        // the below condition checks the message node and finds out
+        // the fromId and toId. It compares it with the userId that is clicked
+        // in the tableView to find out if the message is sent to and by that person
+        // to each other or vice-versa
         if message.fromId == Auth.auth().currentUser?.uid {
             chatPartnerId = message.toId!
         } else {
             chatPartnerId = message.fromId!
         }
         
+        // Once we have the chatPartnerId, the following method is called to get
+        // his/her information alongside the messages sent to one another to be added to an array
         if let id = chatPartnerId {
             let ref = Database.database().reference().child("users").child(id)
             ref.observe(.value, with: { (snapshot) in
-                
+                // The snapshot from the Firebase returns a dictionary object
                 if let dict = snapshot.value as? [String: AnyObject] {
                     cell.textLabel?.text = dict["name"] as? String
                     if let profileImageUrl = dict["profileImage"] as? String {
@@ -71,7 +78,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.detailTextLabel?.text = message.text
         
 //        cell.timeStamp.text = message.timestamp as! String
-        
+        // The following is used to fetch timestamp for specfic messages
         if let myInteger = Int(message.timestamp!) {
             let myDate = NSNumber(value:myInteger)
             let seconds = myDate.doubleValue
@@ -99,6 +106,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         clickedUserId = secondPersonId!
         toId = secondPersonId!
         
+        // The below code fetches the profile image of the user that is clicked
         let ref = Database.database().reference().child("users").child(clickedUserId)
         ref.observe(.value, with: {
             (snapshot) in
@@ -159,6 +167,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var dict: [String: AnyObject] = [:]
     var messageDict = [String: MessageModel]()
     
+     let tableViewImage = UIImage(named: "tableViewBack.png")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CheckUserStatus()
@@ -168,7 +178,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.myTableView.dataSource = self
         
         myTableView.register(UserCell.self, forCellReuseIdentifier: cellId)
-    
+        
     }
     
     func getDirectMessages() {
@@ -178,6 +188,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         
+        // Used to fetch message ids from the direct-message depending upon the logged in user
         let ref = Database.database().reference().child("direct-messages").child(uid)
         ref.observe(.childAdded, with: {
             (snapshot) in
@@ -190,6 +201,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 (snapshot) in
                 print("Direct messages Snapshot:::: \(snapshot)")
                 
+                // Returns a snapshot which contains all the information from a specific node
                 if let dictionary = snapshot.value as? [String: Any] {
                     let message = MessageModel()
                     message.fromId = dictionary["fromId"] as! String
@@ -203,12 +215,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                     let chatPartnerId:String?
                     
+                    // The following algorithm compares the fromId with the current userid
+                    // and finds out specfic message between the two users
                     if message.fromId == Auth.auth().currentUser?.uid {
                         chatPartnerId = message.toId!
                     } else {
                         chatPartnerId = message.fromId!
                     }
                     
+                    // if the Id of the message matches the id of the user
+                    // the messages for both the users to each other would be
+                    // pushed to an array
                     if let correctId = chatPartnerId {
                         self.messageDict[correctId] = message
                         self.messages = Array(self.messageDict.values)
@@ -229,6 +246,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // This method will bring the users and mesages whom YOU sent messages
     // or vice-versa
     
+    // The method is to get the list of people onto the MainViewController to be displayed whom
+    // the logged in user messaged or from people he/she received messages from
     func getMessagesOnMain() {
         let ref = Database.database().reference().child("messages")
         ref.observe(.childAdded, with: {
@@ -281,7 +300,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    
+    // This is check if the user is logged in or not
     func CheckUserStatus() {
         if Auth.auth().currentUser?.uid == nil {
             logoutUser()
@@ -300,6 +319,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // this sets the navbar by fetching user name, user profile image and turns into a
+    // rounded avatar and organizes it
     func setNavbar() {
         self.messages.removeAll()
         self.messageDict.removeAll()
@@ -309,6 +330,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        titleView.backgroundColor = UIColor.white
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -333,6 +355,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let nameLabel = UILabel()
         containerView.addSubview(nameLabel)
         nameLabel.text = self.userName
+        nameLabel.textColor = UIColor.white
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
@@ -346,7 +369,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    
+    // The func is called to navigate from MainView to ChatLogController
     @IBAction func showChatMessagesView(sender: UIButton!) {
         performSegue(withIdentifier: "mainChatSegue", sender: self)
     }
@@ -357,11 +380,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         navigationController?.pushViewController(chatMessagesController, animated: true)
     }
     
-    
     @IBAction func logoutUserAction() {
         logoutUser()
     }
     
+    // Logs out the user from the session
     func logoutUser() {
         do {
           try Auth.auth().signOut()

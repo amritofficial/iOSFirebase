@@ -128,9 +128,12 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(8, 0, 58, 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         // Do any additional setup after loading the view.
     }
     
+    // It sets up the necessary information on the navigation bar of the Chat Message Controller
     func setUpNavbarTitle() {
         if clickedUsername == "" {
             let ref = Database.database().reference().child("users").child(clickedUserId);
@@ -150,6 +153,7 @@ class ChatMessagesController: UICollectionViewController, UITextFieldDelegate, U
         }
     }
     
+    // Fetches the message once the tableview cell (user) is clicked from the contacts
     func getMessageLog() {
         let uid = Auth.auth().currentUser?.uid
         print("GET MESSAGE LOG FUNCTION HAS BEEN EXECUTED!!!")
